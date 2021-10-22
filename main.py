@@ -27,12 +27,14 @@ class CashCalculator(Calculator):
         return(self.today_summ)
 
     def courses(self, currency):
+        current_limit = self.limit
+        current_today_summ = self.today_summ
         if currency == 'USD':
-            return(self.limit / 70 - self.today_summ / 70)
+            return(current_limit // 70 - current_today_summ // 70)
         elif currency == 'Euro':
-            return(self.limit / 80 - self.today_summ / 80)
+            return(current_limit // 80 - current_today_summ // 80)
         elif currency == 'Rouble':
-            return(self.limit - self.today_summ)
+            return(current_limit - current_today_summ)
 
     def get_today_cash_remained(self, currency):
         if self.today_summ == self.limit:
@@ -40,7 +42,7 @@ class CashCalculator(Calculator):
         elif self.today_summ > self.limit:
                 print('Денег нет, держись: твой долг', self.courses(currency), currency)
         else:
-                print('На сегодня осталось:', self.limit - self.courses(currency), 'USD')
+                print('На сегодня осталось:', self.courses(currency), currency)
 
 
 cash_calculator = CashCalculator(1000)
